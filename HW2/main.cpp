@@ -1,25 +1,36 @@
 #include <iostream>
-#include "List.h"
+#include "list.h"
+
 using namespace std;
-
-
-
-
 int main() {
-    List myList;
-    myList.insert(34, 0);
-    myList.insert(12, 1);
-    myList.insert(52, 2);
-    myList.insert(16, 3);
-    myList.insert(12, 4);
-    myList.printList();
-    cout << "Finding 52 at index: " << myList.find(52) << endl;
-    myList.insert(99, 3);
-    myList.printList();
-    myList.remove(52);
-    myList.printList();
-    cout << "Element at index 2: " << myList.findKth(2) << endl;
-    myList.makeEmpty();
-    myList.printList();
-    return 0;
+    list myList;
+    
+
+	myList.insert(0, 7.0);
+	myList.insert(1, 5.0);	
+	myList.insert(0, 6.0);	
+	myList.insert(8, 4.0);	
+
+	myList.printlist();	
+
+	if(myList.find(5.0) > 0){
+        cout << "5.0 found" << endl;
+    }
+    	
+	else{
+        cout << "5.0 not found" << endl;
+    }
+    
+	if(myList.find(4.5) > 0) {
+        cout << "4.5 found" << endl;
+    }
+    
+	else{
+        cout << "4.5 not found" << endl;
+    }
+    
+	myList.remove(7.0);
+	myList.printlist();
+    myList.findKth(2);
+   
 }

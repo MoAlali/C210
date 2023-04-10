@@ -1,87 +1,115 @@
 #include <iostream>
-#include <vector>
-using namespace std;
+#include "Node.h"
 
-class List {
-private:
-    vector<int> arr;
-    int maxSize;
-
+class list {
 public:
-    List() {
-        maxSize = 0;
-    }
-
+    list() : start(NULL) {}
+    
     bool isEmpty() const {
-        return arr.empty();
+        return start == NULL;
     }
 
-    bool isFull() const {
-        return arr.size() == maxSize;
-    }
-
-    int getSize() const {
-        return arr.size();
-    }
-
-    void setSize(int size) {
-        arr.resize(size);
-        maxSize = size;
-    }
-
-    void printList() const {
-        if (isEmpty()) {
-            cout << "List is empty" << endl;
+    void insert(int index, double x) {
+        if (index < 0) {
+            return;
+        }
+        
+        Node* newNode = new Node;
+        newNode->data = x;
+        
+        if (index == 0) {
+            newNode->next = start;
+            start = newNode;
         } else {
-            cout << "List: ";
-            for (auto it = arr.begin(); it != arr.end(); ++it) {
-                cout << *it << " ";
+            Node* currNode = start;
+            for (int i = 1; i < index && currNode != NULL; i++) {
+                currNode = currNode->next;
             }
-            cout << endl;
+            if (currNode != NULL) {
+                newNode->next = currNode->next;
+                currNode->next = newNode;
+            } else {
+                delete newNode;
+            }
+        }
+    }
+    
+    int find(double x) const {
+        Node* currNode = start;
+        int currIndex = 1;
+        while (currNode != NULL && currNode->data != x) {
+            currNode = currNode->next;
+            currIndex++;
+        }
+        if (currNode != NULL) {
+            return currIndex;
+        } else {
+            return 0;
         }
     }
 
+    void printlist() const {
+        Node* currNode = start;
+        while (currNode != NULL) {
+            std::cout << currNode->data << " ";
+            currNode = currNode->next;
+        }
+        std::cout << std::endl;
+    }
+
+    Node* findKth(int k) const {
+        if (start == NULL || k < 1) {
+            return NULL;
+        }
+        
+        Node* currNode = start;
+        int count = 1;
+        while (currNode != NULL && count < k) {
+            currNode = currNode->next;
+            count++;
+        }
+        
+        if (count == k && currNode != NULL) {
+            return currNode;
+        } else {
+            return NULL;
+        }
+    }
+    
     void makeEmpty() {
-        arr.clear();
-        cout << "List is now empty" << endl;
+        Node* currNode = start;
+        while (currNode != NULL) {
+            Node* tempNode = currNode;
+            currNode = currNode->next;
+            delete tempNode;
+        }
+        start = NULL;
     }
 
-    int find(int value) const {
-        auto it = find(arr.begin(), arr.end(), value);
-        if (it != arr.end()) {
-            return distance(arr.begin(), it);
-        } else {
-            return -1;
+    void remove(double x) {
+        if (start == NULL) {
+            return;
+        }
+        
+        if (start->data == x) {
+            Node* tempNode = start;
+            start = start->next;
+            delete tempNode;
+            return;
+        }
+        
+        Node* currNode = start;
+        while (currNode->next != NULL && currNode->next->data != x) {
+            currNode = currNode->next;
+        }
+        
+        if (currNode->next != NULL && currNode->next->data == x) {
+            Node* tempNode = currNode->next;
+            currNode->next = currNode->next->next;
+            delete tempNode;
         }
     }
 
-    void insert(int value, int index) {
-        if (isFull()) {
-            cout << "List is full" << endl;
-        } else if (index < 0 || index > getSize()) {
-            cout << "Invalid index" << endl;
-        } else {
-            arr.insert(arr.begin() + index, value);
-            cout << value << " is inserted at index " << index << endl;
-        }
-    }
-
-    void remove(int value) {
-        auto it = find(arr.begin(), arr.end(), value);
-        if (it == arr.end()) {
-            cout << value << " is not found in the list" << endl;
-        } else {
-            arr.erase(it);
-            cout << value << " is removed from index " << distance(arr.begin(), it) << endl;
-        }
-    }
-
-    int findKth(int k) const {
-        if (k < 0 || k >= getSize()) {
-            cout << "Index out of range" << endl;
-            return -1;
-        } else {
-            return arr[k];
-        }
-    }
+private:
+    Node* start;
 };

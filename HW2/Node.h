@@ -1,18 +1,7 @@
 #include <iostream>
 using namespace std;
-class Node
-{
-private:
-    /* data */
+class Node {
 public:
-    Node(/* args */);
-    ~Node();
+	double data;
+	Node* next;
 };
-
-Node::Node(/* args */)
-{
-}
-
-Node::~Node()
-{
-}
