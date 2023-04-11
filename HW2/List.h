@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Node.h"
-
+using namespace std;
 class list {
 public:
     list() : start(NULL) {}
-    
+
     bool isEmpty() const {
         return start == NULL;
     }
@@ -13,10 +13,10 @@ public:
         if (index < 0) {
             return;
         }
-        
+
         Node* newNode = new Node;
         newNode->data = x;
-        
+
         if (index == 0) {
             newNode->next = start;
             start = newNode;
@@ -33,7 +33,7 @@ public:
             }
         }
     }
-    
+
     int find(double x) const {
         Node* currNode = start;
         int currIndex = 1;
@@ -54,28 +54,28 @@ public:
             std::cout << currNode->data << " ";
             currNode = currNode->next;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     Node* findKth(int k) const {
         if (start == NULL || k < 1) {
             return NULL;
         }
-        
+
         Node* currNode = start;
         int count = 1;
         while (currNode != NULL && count < k) {
             currNode = currNode->next;
             count++;
         }
-        
+
         if (count == k && currNode != NULL) {
             return currNode;
         } else {
             return NULL;
         }
     }
-    
+
     void makeEmpty() {
         Node* currNode = start;
         while (currNode != NULL) {
@@ -90,19 +90,19 @@ public:
         if (start == NULL) {
             return;
         }
-        
+
         if (start->data == x) {
             Node* tempNode = start;
             start = start->next;
             delete tempNode;
             return;
         }
-        
+
         Node* currNode = start;
         while (currNode->next != NULL && currNode->next->data != x) {
             currNode = currNode->next;
         }
-        
+
         if (currNode->next != NULL && currNode->next->data == x) {
             Node* tempNode = currNode->next;
             currNode->next = currNode->next->next;
