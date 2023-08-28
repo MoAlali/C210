@@ -1,37 +1,29 @@
 #include <iostream>
 #include "list.h"
-
 using namespace std;
 int main() {
     list myList;
-    
 
-	myList.insert(0, 0);
-	myList.insert(9, 99);	
-	
+    myList.insert(0, 1.0);
+    myList.insert(1, 2.0);
+    myList.insert(2, 3.0);
 
-	myList.printlist();	
+    cout << "List after inserting elements: ";
+    myList.printlist();
 
-	if(myList.find(5.0) > 0){
-        cout << "5.0 found" << endl;
-    }
-    	
-	else{
-        cout << "5.0 not found" << endl;
-    }
-    
-	if(myList.find(9) > 0) {
-        cout << "9 found" << endl;
-    }
-    
-	else{
-        cout << "9 not found" << endl;
-    }
-    
-	my
+    cout << "Index of element 2.0: " << myList.find(2.0) << endl;
 
-	myList.remove(7.0);
-	myList.printlist();
-    myList.findKth(2);
-   
+    Node* kthNode = myList.findKth(2);
+    cout << "2nd element is " << kthNode->data << endl;
+
+    myList.remove(2.0);
+
+    cout << "List after removing element 2.0: ";
+    myList.printlist();
+
+    myList.makeEmpty();
+
+    cout << "Is the list empty now? " << (myList.isEmpty() ? "Yes" : "No") << endl;
+
+    return 0;
 }
